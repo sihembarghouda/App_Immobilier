@@ -1,3 +1,4 @@
+// src/controllers/favorite.controller.js
 const pool = require('../config/database');
 
 // Get user favorites
@@ -43,6 +44,10 @@ exports.getUserFavorites = async (req, res) => {
       success: false,
       message: 'Erreur lors de la récupération des favoris',
       error: error.message
+    console.error('Get favorites error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la récupération des favoris'
     });
   } finally {
     client.release();
@@ -96,6 +101,9 @@ exports.addFavorite = async (req, res) => {
         success: true,
         message: 'Cette propriété est déjà dans vos favoris',
         data: { id: alreadyFavorite.rows[0].id, property_id, user_id: req.user.id }
+      return res.status(400).json({
+        success: false,
+        message: 'Cette propriété est déjà dans vos favoris'
       });
     }
 

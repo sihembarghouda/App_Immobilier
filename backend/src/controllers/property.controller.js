@@ -1,3 +1,4 @@
+// src/controllers/property.controller.js
 const pool = require('../config/database');
 
 // Get all properties with filters
@@ -25,6 +26,12 @@ exports.getAllProperties = async (req, res) => {
         p.*,
         u.name as owner_name,
         u.phone as owner_phone
+        u.phone as owner_phone,
+        u.avatar as owner_avatar,
+        EXISTS(
+          SELECT 1 FROM favorites f 
+          WHERE f.property_id = p.id AND f.user_id = $1
+        ) as is_favorite
       FROM properties p
       LEFT JOIN users u ON p.owner_id = u.id
       WHERE 1=1
@@ -32,6 +39,8 @@ exports.getAllProperties = async (req, res) => {
     
     const params = [];
     let paramIndex = 1;
+    const params = [req.user?.id || null];
+    let paramIndex = 2;
 
     // Build dynamic query based on filters
     if (city) {
@@ -112,6 +121,10 @@ exports.getAllProperties = async (req, res) => {
       success: true,
       count: properties.length,
       data: properties
+    res.status(200).json({
+      success: true,
+      count: result.rows.length,
+      data: result.rows
     });
   } catch (error) {
     console.error('Get properties error:', error);

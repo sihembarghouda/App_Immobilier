@@ -33,3 +33,4 @@ router.put('/:id', authMiddleware, canEditProperty, propertyValidation, validate
 router.delete('/:id', authMiddleware, canEditProperty, propertyController.deleteProperty);
 
 module.exports = router;
+module.exports = router;

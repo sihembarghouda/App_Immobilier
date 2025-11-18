@@ -1,3 +1,4 @@
+// src/controllers/auth.controller.js
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('../config/database');
@@ -27,6 +28,7 @@ exports.register = async (req, res) => {
     } else if (normalizedRole === 'seller') {
       normalizedRole = 'vendeur';
     }
+    const { email, password, name, phone } = req.body;
 
     // Check if user already exists
     const userExists = await client.query(
@@ -50,6 +52,10 @@ exports.register = async (req, res) => {
        VALUES ($1, $2, $3, $4, $5) 
        RETURNING id, email, name, phone, role, created_at`,
       [email, hashedPassword, name, phone, normalizedRole]
+      `INSERT INTO users (email, password, name, phone) 
+       VALUES ($1, $2, $3, $4) 
+       RETURNING id, email, name, phone, created_at`,
+      [email, hashedPassword, name, phone]
     );
 
     const user = result.rows[0];
@@ -152,6 +158,7 @@ exports.getCurrentUser = async (req, res) => {
   try {
     const result = await client.query(
       'SELECT id, email, name, phone, avatar, role, created_at FROM users WHERE id = $1',
+      'SELECT id, email, name, phone, avatar, created_at FROM users WHERE id = $1',
       [req.user.id]
     );
 

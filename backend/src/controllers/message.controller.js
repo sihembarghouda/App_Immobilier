@@ -1,3 +1,4 @@
+// src/controllers/message.controller.js
 const pool = require('../config/database');
 
 // Get all conversations
