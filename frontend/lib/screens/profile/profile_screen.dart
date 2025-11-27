@@ -9,6 +9,7 @@ import '../../utils/translations.dart';
 import '../../utils/role_helper.dart';
 import '../../widgets/role_protected_widget.dart';
 import './settings_pages.dart';
+import '../about/about_developers_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -208,13 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.of(context).pushNamed('/edit-profile');
                 },
               ),
-              _buildMenuTile(
-                context,
-                icon: Icons.badge_outlined,
-                title: 'Changer de rôle',
-                subtitle: UserRole.getRoleDescription(user.role),
-                onTap: () => _showRoleSelectionDialog(context, authProvider),
-              ),
+              // Role change option removed as per requirement
               _buildMenuTile(
                 context,
                 icon: Icons.home_work_outlined,
@@ -279,6 +274,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const HelpSupportScreen(),
+                    ),
+                  );
+                },
+              ),
+              _buildMenuTile(
+                context,
+                icon: Icons.group,
+                title: 'L\'équipe de développement',
+                subtitle: 'Développé par 5 développeurs',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutDevelopersScreen(),
                     ),
                   );
                 },
@@ -931,91 +940,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             )
           : null,
-    );
-  }
-
-  /// Affiche le dialog de sélection de rôle
-  void _showRoleSelectionDialog(
-      BuildContext context, AuthProvider authProvider) {
-    final currentRole = authProvider.user?.role ?? UserRole.visiteur;
-
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('Changer de rôle'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: UserRole.getAllRoles().map((role) {
-              final isSelected = currentRole == role['value'];
-              return ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Color(UserRole.getRoleColor(role['value']!))
-                        .withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    role['icon']!,
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                ),
-                title: Text(
-                  role['label']!,
-                  style: TextStyle(
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
-                  ),
-                ),
-                subtitle: Text(role['description']!),
-                trailing: isSelected
-                    ? Icon(Icons.check_circle,
-                        color: Color(UserRole.getRoleColor(role['value']!)))
-                    : null,
-                selected: isSelected,
-                onTap: () async {
-                  if (role['value'] != currentRole) {
-                    Navigator.pop(dialogContext);
-
-                    // Mise à jour du rôle
-                    final success = await authProvider.updateProfile(
-                      authProvider.user!.name,
-                      authProvider.user!.phone ?? '',
-                      role: role['value'],
-                    );
-
-                    if (success && mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Rôle changé en ${role['label']}'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } else if (mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(authProvider.error ??
-                              'Erreur lors du changement de rôle'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  } else {
-                    Navigator.pop(dialogContext);
-                  }
-                },
-              );
-            }).toList(),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              child: const Text('Annuler'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

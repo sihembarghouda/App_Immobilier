@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>ImmoTunisie - Politique de Confidentialité</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px 20px; background: #f5f5f5; }
+        .container { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2196F3; border-bottom: 3px solid #2196F3; padding-bottom: 15px; }
+        h2 { color: #333; margin-top: 35px; border-left: 4px solid #2196F3; padding-left: 15px; }
+        p, li { line-height: 1.8; color: #555; }
+        ul { padding-left: 25px; }
+        .footer { text-align: center; margin-top: 50px; color: #999; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <pre style='white-space: pre-wrap; font-family: inherit;'># Politique de ConfidentialitÃ© - ImmoTunisie
+
+**Date d'entrÃ©e en vigueur :** 26 novembre 2025  
+**DerniÃ¨re mise Ã  jour :** 26 novembre 2025
+
+## 1. Introduction
+
+ImmoTunisie ("nous", "notre", "l'Application") respecte votre vie privÃ©e et s'engage Ã  protÃ©ger vos donnÃ©es personnelles. Cette politique de confidentialitÃ© explique comment nous collectons, utilisons, stockons et protÃ©geons vos informations lorsque vous utilisez notre application mobile.
+
+## 2. Informations que nous collectons
+
+### 2.1 Informations fournies directement
+- **Compte utilisateur** : Nom, email, numÃ©ro de tÃ©lÃ©phone
+- **Photo de profil** : Image tÃ©lÃ©chargÃ©e volontairement
+- **Annonces immobiliÃ¨res** : Titre, description, prix, photos, adresse
+- **Messages** : Communications avec autres utilisateurs
+
+### 2.2 Informations collectÃ©es automatiquement
+- **GÃ©olocalisation** : Position GPS pour rechercher des biens Ã  proximitÃ© (avec votre autorisation)
+- **Photos** : AccÃ¨s Ã  votre galerie pour publier des annonces (avec votre autorisation)
+- **DonnÃ©es techniques** : Type d'appareil, systÃ¨me d'exploitation, version de l'application
+
+## 3. Utilisation de vos donnÃ©es
+
+Nous utilisons vos donnÃ©es pour :
+- **Fonctionnement du service** : CrÃ©er et gÃ©rer votre compte
+- **Annonces immobiliÃ¨res** : Publier et afficher vos propriÃ©tÃ©s
+- **Recherche gÃ©ographique** : Afficher les biens prÃ¨s de vous sur la carte
+- **Messagerie** : Faciliter la communication entre acheteurs et vendeurs
+- **Assistant IA** : Fournir des recommandations personnalisÃ©es
+- **SÃ©curitÃ©** : ProtÃ©ger contre la fraude et les abus
+
+## 4. Partage de donnÃ©es
+
+Nous **NE vendons JAMAIS** vos donnÃ©es personnelles.
+
+Vos donnÃ©es sont partagÃ©es uniquement :
+- **Avec d'autres utilisateurs** : Votre nom et contact sont visibles sur vos annonces publiques
+- **Services tiers techniques** :
+  - HÃ©bergement backend (serveur Node.js)
+  - Base de donnÃ©es PostgreSQL sÃ©curisÃ©e
+  - OpenStreetMap pour les cartes (pas Google Maps)
+  - OpenAI pour l'assistant IA (donnÃ©es anonymisÃ©es)
+
+## 5. Permissions de l'application
+
+L'application demande les permissions suivantes :
+
+| Permission | Utilisation | Obligatoire |
+|------------|-------------|-------------|
+| **INTERNET** | Communication avec le serveur | Oui |
+| **Localisation (GPS)** | Recherche de biens Ã  proximitÃ© | Non (optionnel) |
+| **Appareil photo** | Photo de profil | Non (optionnel) |
+| **Galerie photos** | Upload d'images d'annonces | Non (optionnel) |
+
+Vous pouvez refuser ces permissions dans les paramÃ¨tres de votre appareil. Certaines fonctionnalitÃ©s seront alors limitÃ©es.
+
+## 6. Stockage et sÃ©curitÃ©
+
+- **Chiffrement** : Communications HTTPS entre l'app et le serveur
+- **Mots de passe** : HashÃ©s avec bcrypt (jamais stockÃ©s en clair)
+- **Localisation** : PostgreSQL hÃ©bergÃ© en Europe (RGPD compliant)
+- **DurÃ©e de conservation** : DonnÃ©es conservÃ©es tant que votre compte est actif
+
+## 7. Vos droits (RGPD)
+
+Vous avez le droit de :
+- **AccÃ©der** Ã  vos donnÃ©es personnelles
+- **Rectifier** des informations incorrectes
+- **Supprimer** votre compte et toutes vos donnÃ©es
+- **Exporter** vos donnÃ©es dans un format lisible
+- **Vous opposer** au traitement de certaines donnÃ©es
+
+**Pour exercer vos droits :** Contactez-nous Ã  [votre-email@example.com]
+
+## 8. DonnÃ©es des mineurs
+
+L'application est destinÃ©e aux personnes de **18 ans et plus**. Nous ne collectons pas intentionnellement de donnÃ©es d'enfants de moins de 13 ans.
+
+## 9. Cookies et trackers
+
+Nous **n'utilisons PAS** :
+- âŒ Cookies de publicitÃ©
+- âŒ Trackers tiers (Google Analytics, Facebook Pixel, etc.)
+- âŒ Outils de profilage marketing
+
+Nous utilisons uniquement :
+- âœ… Token JWT pour l'authentification (stockÃ© localement sur votre appareil)
+
+## 10. Modifications de cette politique
+
+Nous pouvons mettre Ã  jour cette politique de confidentialitÃ©. Vous serez notifiÃ© des changements importants via l'application ou par email.
+
+## 11. Contact
+
+Pour toute question concernant cette politique :
+
+**Email :** [votre-email@example.com]  
+**Adresse :** [Votre adresse en Tunisie]  
+**TÃ©lÃ©phone :** [Votre numÃ©ro]
+
+## 12. Juridiction
+
+Cette politique est rÃ©gie par les lois tunisiennes et les rÃ©glementations de l'Union EuropÃ©enne (RGPD).
+
+---
+
+**DerniÃ¨re rÃ©vision :** 26 novembre 2025  
+**Version :** 1.0
+</pre>
+    </div>
+    <div class='footer'>
+        <p>ImmoTunisie - Dernière mise à jour: 26/11/2025</p>
+    </div>
+</body>
+</html>

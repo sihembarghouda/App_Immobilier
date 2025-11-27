@@ -4,6 +4,12 @@ const router = express.Router();
 const aiController = require('../controllers/ai.controller');
 const authMiddleware = require('../middleware/auth.middleware');
 
+// Assistant AI conversationnel
+router.post('/chat', aiController.chat);
+router.get('/suggested-questions', aiController.getSuggestedQuestions);
+router.post('/analyze-needs', authMiddleware, aiController.analyzeNeeds);
+router.get('/conversation-history', authMiddleware, aiController.getConversationHistory);
+
 // AI Recommendations pour acheteurs
 router.get('/recommendations', authMiddleware, aiController.getRecommendations);
 

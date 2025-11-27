@@ -647,7 +647,7 @@ class HelpSupportScreen extends StatelessWidget {
             context,
             icon: Icons.email,
             title: 'Email',
-            value: 'support@immobilier-app.com',
+            value: 'rayenchraiet2000@gmail.com',
             onTap: () {
               // TODO: Open email client
             },
@@ -656,7 +656,7 @@ class HelpSupportScreen extends StatelessWidget {
             context,
             icon: Icons.phone,
             title: 'Téléphone',
-            value: '+216 XX XXX XXX',
+            value: '+216 94599198',
             onTap: () {
               // TODO: Open phone dialer
             },

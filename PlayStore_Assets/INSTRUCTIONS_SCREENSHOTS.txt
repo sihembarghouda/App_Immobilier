@@ -1,0 +1,158 @@
+════════════════════════════════════════════════════════════════
+           📸 INSTRUCTIONS: CAPTURER LES SCREENSHOTS
+════════════════════════════════════════════════════════════════
+
+Les screenshots sont REQUIS par Google Play Store.
+Minimum: 2 screenshots
+Recommandé: 4-8 screenshots
+
+OPTION 1: APPAREIL/ÉMULATEUR ANDROID (Recommandé)
+═══════════════════════════════════════════════════════════════
+
+1. Lancer l'application:
+   cd C:\Users\rayen\Desktop\App_Immobilier\frontend
+   flutter run --release
+
+2. Une fois l'app lancée, naviguer vers ces écrans:
+
+   a) ÉCRAN HOME (Liste propriétés)
+      - Vue avec plusieurs propriétés
+      - Assurez-vous que les données s'affichent
+
+   b) ÉCRAN DÉTAILS PROPRIÉTÉ
+      - Cliquer sur une propriété
+      - Capturer les détails + images
+
+   c) ÉCRAN CARTE
+      - Aller à l'onglet Carte
+      - Montrer les pins de localisation
+
+   d) ÉCRAN RECHERCHE/FILTRES
+      - Ouvrir les filtres de recherche
+      - Montrer les options
+
+3. Capturer les screenshots:
+   
+   Sur Émulateur Android Studio:
+   - Cliquer sur l'icône 📷 dans le panneau latéral
+   - Ou: Ctrl + S
+   
+   Sur Appareil Physique:
+   - Bouton Volume Bas + Bouton Power simultanément
+
+4. Récupérer les screenshots:
+   
+   Émulateur: Screenshots sauvés dans Pictures/Screenshots
+   
+   Appareil: Transférer via USB ou cloud
+
+
+OPTION 2: SCREENSHOTS MANUELS (si pas d'appareil)
+═══════════════════════════════════════════════════════════════
+
+Vous pouvez créer des screenshots mockups avec:
+
+1. **Previewed.app** (Gratuit)
+   - Upload vos captures ou designs
+   - Génère des mockups professionnels
+
+2. **MockUPhone.com** (Gratuit)
+   - Mockups de différents appareils
+   - Export haute résolution
+
+3. **Smartmockups.com** (Gratuit + Premium)
+   - Templates variés
+   - Mockups réalistes
+
+
+OPTION 3: UTILISER DES IMAGES TEMPORAIRES
+═══════════════════════════════════════════════════════════════
+
+Si vous voulez publier rapidement:
+
+1. Créez 4 images simples avec texte:
+   - Screenshot 1: "Liste des Propriétés"
+   - Screenshot 2: "Recherche sur Carte"  
+   - Screenshot 3: "Détails Complets"
+   - Screenshot 4: "Messagerie Intégrée"
+
+2. Vous pourrez les remplacer après publication initiale
+
+
+CHECKLIST SCREENSHOTS
+═══════════════════════════════════════════════════════════════
+
+Écrans suggérés (par ordre de priorité):
+
+□ 1. HOME - Liste propriétés (PRIORITÉ 1)
+□ 2. DÉTAILS - Une propriété complète (PRIORITÉ 1)  
+□ 3. CARTE - Vue carte interactive (PRIORITÉ 2)
+□ 4. RECHERCHE - Filtres de recherche (PRIORITÉ 2)
+□ 5. FAVORIS - Liste favoris (PRIORITÉ 3)
+□ 6. MESSAGES - Conversations (PRIORITÉ 3)
+□ 7. PROFIL - Profil utilisateur (PRIORITÉ 3)
+□ 8. AJOUT - Formulaire ajout propriété (PRIORITÉ 3)
+
+
+COMMANDE POUR LANCER L'APP
+═══════════════════════════════════════════════════════════════
+
+```powershell
+cd C:\Users\rayen\Desktop\App_Immobilier\frontend
+
+# Si vous avez un émulateur ou appareil connecté:
+flutter devices
+
+# Lancer l'app:
+flutter run --release
+```
+
+
+APRÈS CAPTURE
+═══════════════════════════════════════════════════════════════
+
+1. Copier les screenshots dans:
+   C:\Users\rayen\Desktop\App_Immobilier\PlayStore_Assets\screenshots\
+
+2. Nommer clairement:
+   01_home.png
+   02_details.png
+   03_map.png
+   04_search.png
+   etc.
+
+3. Vérifier:
+   - Résolution: minimum 320px de largeur
+   - Format: PNG ou JPG
+   - Taille fichier: < 8 MB chacun
+
+
+IMPORTANT
+═══════════════════════════════════════════════════════════════
+
+⚠️  Si vous n'avez PAS d'appareil Android maintenant:
+   
+   → Vous pouvez quand même créer le package pour votre ami
+   → Votre ami pourra capturer les screenshots lors du test
+   → Ajoutez une note dans CREDENTIALS.txt pour lui
+
+   Note à ajouter:
+   "SCREENSHOTS: À capturer lors du premier test de l'app
+    avant soumission. Minimum 2 écrans requis."
+
+
+CONTINUER SANS SCREENSHOTS
+═══════════════════════════════════════════════════════════════
+
+Si vous voulez avancer sans screenshots maintenant:
+
+1. Créez 4 images placeholder (script disponible)
+2. Votre ami les remplacera avant publication finale
+3. Google Play accepte modifications avant publication
+
+Pour créer des placeholders:
+```powershell
+# Script fourni dans next step
+```
+
+════════════════════════════════════════════════════════════════

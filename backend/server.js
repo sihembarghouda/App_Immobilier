@@ -18,6 +18,8 @@ const favoriteRoutes = require('./src/routes/favorite.routes');
 const messageRoutes = require('./src/routes/message.routes');
 const uploadRoutes = require('./src/routes/upload.routes');
 const aiRoutes = require('./src/routes/ai.routes');
+const securityRoutes = require('./src/routes/security.routes');
+const notificationRoutes = require('./src/routes/notification.routes');
 
 // Import database
 const pool = require('./src/config/database');
@@ -64,6 +66,8 @@ app.use('/api/favorites', favoriteRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/security', securityRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -96,10 +100,14 @@ pool.query('SELECT NOW()', (err, result) => {
     console.log('✅ Database connected successfully');
   }
 
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
     console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`🌐 API Base URL: http://localhost:${PORT}/api`);
+    
+    // Initialize WebSocket after server starts
+    const websocketService = require('./src/services/websocket.service');
+    websocketService.initialize(server);
   });
 });
 

@@ -1,0 +1,76 @@
+════════════════════════════════════════════════════════════════
+           🚀 GUIDE: BUILDER L'AAB SANS MODE DÉVELOPPEUR
+════════════════════════════════════════════════════════════════
+
+⚠️  Flutter demande le Mode Développeur Windows pour les symlinks.
+
+OPTION 1: ACTIVER MODE DÉVELOPPEUR (Recommandé)
+═══════════════════════════════════════════════════════════════
+
+1. Ouvrir Paramètres Windows:
+   start ms-settings:developers
+
+2. Activer "Mode développeur"
+
+3. Redémarrer le terminal PowerShell
+
+4. Relancer le build:
+   cd frontend
+   flutter build appbundle --release
+
+
+OPTION 2: BUILD SANS MODE DÉVELOPPEUR (Alternative)
+═══════════════════════════════════════════════════════════════
+
+Si vous ne pouvez pas activer le mode développeur:
+
+1. Utiliser un émulateur Android ou un appareil physique
+
+2. Builder directement sur l'appareil:
+   flutter build apk --release
+
+3. Puis convertir APK en AAB avec bundletool:
+   • Télécharger bundletool: 
+     https://github.com/google/bundletool/releases
+   
+   • Convertir:
+     java -jar bundletool.jar build-bundle 
+     --modules=app-release.apk 
+     --output=app-release.aab
+
+
+OPTION 3: BUILD AVEC GRADLE DIRECTEMENT
+═══════════════════════════════════════════════════════════════
+
+1. Aller dans le dossier android:
+   cd frontend\android
+
+2. Builder avec Gradle:
+   .\gradlew.bat bundleRelease
+
+3. Le fichier AAB sera dans:
+   app\build\outputs\bundle\release\app-release.aab
+
+
+OPTION 4: UTILISER GITHUB ACTIONS (Cloud Build)
+═══════════════════════════════════════════════════════════════
+
+Si rien ne fonctionne localement, vous pouvez utiliser GitHub Actions
+pour builder dans le cloud (gratuit).
+
+Consultez: PLAY_STORE_DEPLOYMENT_GUIDE.md section "Cloud Build"
+
+
+════════════════════════════════════════════════════════════════
+                         ✅ RECOMMANDATION
+════════════════════════════════════════════════════════════════
+
+👉 OPTION 3 (Gradle) est la plus simple si le mode développeur 
+   ne fonctionne pas. Essayez:
+
+   cd C:\Users\rayen\Desktop\App_Immobilier\frontend\android
+   .\gradlew.bat bundleRelease
+
+Cela devrait fonctionner sans activer le mode développeur!
+
+════════════════════════════════════════════════════════════════

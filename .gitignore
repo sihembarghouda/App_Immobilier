@@ -1,0 +1,114 @@
+# ============================================
+# ImmoTunisie - .gitignore
+# ============================================
+
+# KEYSTORE - NE JAMAIS COMMITER ⚠️
+*.jks
+*.keystore
+key.properties
+**/signing/
+**/keystore/
+
+# Credentials
+CREDENTIALS.txt
+**/credentials/
+
+# Builds
+build/
+*.aab
+*.apk
+*.app
+*.ipa
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+flutter_*.png
+linked_*.ds
+unlinked.ds
+unlinked_spec.ds
+
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/captures
+.cxx
+*.ap_
+*.dex
+*.class
+/gen/
+
+# iOS
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+**/*sync/
+.sconsign.dblite
+.tags*
+**/.vagrant/
+**/DerivedData/
+Icon?
+**/Pods/
+**/.symlinks/
+profile
+xcuserdata
+**/.generated/
+Flutter/App.framework
+Flutter/Flutter.framework
+Flutter/Flutter.podspec
+Flutter/Generated.xcconfig
+Flutter/ephemeral/
+Flutter/app.flx
+Flutter/app.zip
+Flutter/flutter_assets/
+Flutter/flutter_export_environment.sh
+ServiceDefinitions.json
+Runner/GeneratedPluginRegistrant.*
+
+# Node.js (Backend)
+node_modules/
+npm-debug.log
+yarn-error.log
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.old
+*~
+
+# Deployment packages (optionnel, commenter si vous voulez versioner)
+# ImmoTunisie_Deploy/
+# *.zip

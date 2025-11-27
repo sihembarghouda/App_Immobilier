@@ -9,6 +9,7 @@ import 'providers/message_provider.dart';
 import 'providers/theme_provider.dart';
 import 'providers/location_provider.dart';
 import 'providers/locale_provider.dart';
+import 'providers/notification_provider.dart';
 
 // Écrans
 import 'screens/home/home_screen.dart';
@@ -43,6 +44,7 @@ class ImmobilierApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => LocationProvider()),
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ],
       child: Consumer2<ThemeProvider, LocaleProvider>(
         builder: (context, themeProvider, localeProvider, child) {

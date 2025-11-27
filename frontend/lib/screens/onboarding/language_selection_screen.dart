@@ -112,26 +112,55 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: [
-                              Colors.blue.shade700,
-                              Colors.blue.shade400
-                            ],
+                            colors: [Color(0xFF2E7D32), Color(0xFF66BB6A)],
                           ),
                           borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF2E7D32).withOpacity(0.3),
+                              blurRadius: 20,
+                              offset: Offset(0, 10),
+                            ),
+                          ],
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.home_work,
-                                  size: 80, color: Colors.white),
-                              SizedBox(height: 10),
+                              Container(
+                                padding: EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.2),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(Icons.villa,
+                                    size: 60, color: Colors.white),
+                              ),
+                              SizedBox(height: 16),
                               Text(
-                                'Indomio',
+                                'HomeFinder',
                                 style: TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 36,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
+                                  letterSpacing: 1.5,
+                                  shadows: [
+                                    Shadow(
+                                      blurRadius: 10,
+                                      color: Colors.black26,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Find Your Dream Home',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontWeight: FontWeight.w300,
+                                  letterSpacing: 0.5,
                                 ),
                               ),
                             ],

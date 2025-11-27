@@ -133,17 +133,18 @@ class PropertyProvider with ChangeNotifier {
   }
 
   // Delete property
-  Future<void> deleteProperty(String propertyId) async {
+  Future<bool> deleteProperty(String propertyId) async {
     try {
       final api = await _ensureApiService();
       await api.deleteProperty(propertyId);
       _properties.removeWhere((p) => p.id == propertyId);
       _favoriteProperties.removeWhere((p) => p.id == propertyId);
       notifyListeners();
+      return true;
     } catch (e) {
       _error = e.toString();
       notifyListeners();
-      throw Exception('Failed to delete property: $_error');
+      return false;
     }
   }
 

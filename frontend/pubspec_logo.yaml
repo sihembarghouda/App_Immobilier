@@ -1,0 +1,12 @@
+# Configuration pour flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_logo.png"
+  adaptive_icon_background: "#2196F3"
+  adaptive_icon_foreground: "assets/images/app_logo.png"
+
+# Instructions:
+# 1. Créer un logo simple 1024x1024px nommé "app_logo.png" dans assets/images/
+# 2. Installer le package: flutter pub add dev:flutter_launcher_icons
+# 3. Générer les icônes: flutter pub run flutter_launcher_icons

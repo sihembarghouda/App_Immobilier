@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../providers/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../about/about_developers_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -218,6 +219,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.info),
             title: const Text('Version'),
             subtitle: const Text('1.0.0'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.group),
+            title: const Text('L\'équipe de développement'),
+            subtitle: const Text('Développé par 5 développeurs'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AboutDevelopersScreen(),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.description),

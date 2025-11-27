@@ -4,11 +4,14 @@ import 'package:provider/provider.dart';
 import '../../providers/property_provider.dart';
 import '../../providers/location_provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/notification_provider.dart';
 import '../../models/property.dart';
 import '../widgets/property_card.dart';
 import '../widgets/shimmer_loading.dart';
 import '../../utils/translations.dart';
 import '../../utils/role_helper.dart';
+import '../../widgets/ai_assistant_dialog.dart';
+import '../notifications/notifications_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -98,16 +101,63 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.of(context).pushNamed('/map');
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Notifications'),
-                  duration: Duration(seconds: 1),
-                ),
-              );
-            },
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications_outlined),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationsScreen(),
+                    ),
+                  );
+                },
+              ),
+              Consumer<NotificationProvider>(
+                builder: (context, notificationProvider, _) {
+                  final unreadCount = notificationProvider.unreadCount;
+                  if (unreadCount == 0) return const SizedBox();
+
+                  return Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 18,
+                        minHeight: 18,
+                      ),
+                      child: Text(
+                        unreadCount > 99 ? '99+' : unreadCount.toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: const Icon(Icons.smart_toy_outlined),
+              tooltip: 'Assistant IA',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const AIAssistantDialog(),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -475,11 +525,10 @@ class _HomeScreenState extends State<HomeScreen> {
     // Pour tous: Assistant IA
     return FloatingActionButton.extended(
       onPressed: () {
-        Navigator.of(context).pushNamed('/chat', arguments: {
-          'userId': 'ai_chatbot_assistant',
-          'userName': 'Assistant IA',
-          'userAvatar': null,
-        });
+        showDialog(
+          context: context,
+          builder: (context) => const AIAssistantDialog(),
+        );
       },
       backgroundColor: Theme.of(context).colorScheme.secondary,
       icon: const Icon(Icons.smart_toy),

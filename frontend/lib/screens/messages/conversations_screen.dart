@@ -46,10 +46,32 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
   String _formatRelative(DateTime dt) {
     final now = DateTime.now();
     final diff = now.difference(dt);
-    if (diff.inSeconds < 60) return '${diff.inSeconds}s';
-    if (diff.inMinutes < 60) return '${diff.inMinutes}m';
-    if (diff.inHours < 24) return '${diff.inHours}h';
-    return '${diff.inDays}d';
+    if (diff.inSeconds < 60) return 'En ligne';
+    if (diff.inMinutes < 60) return 'Il y a ${diff.inMinutes} min';
+    if (diff.inHours < 1) return 'Il y a ${diff.inMinutes} min';
+    if (diff.inHours < 24) return 'Il y a ${diff.inHours}h';
+    if (diff.inDays == 1) return 'Hier';
+    if (diff.inDays < 7) return 'Il y a ${diff.inDays}j';
+    return '${diff.inDays}j';
+  }
+
+  String _getOnlineStatus(DateTime? lastSeen) {
+    if (lastSeen == null) return 'Hors ligne';
+
+    final now = DateTime.now();
+    final diff = now.difference(lastSeen);
+
+    if (diff.inMinutes < 5) return 'En ligne';
+    if (diff.inMinutes < 60) return 'Il y a ${diff.inMinutes} min';
+    if (diff.inHours < 24) return 'Il y a ${diff.inHours}h';
+    if (diff.inDays == 1) return 'Hier';
+    return 'Il y a ${diff.inDays}j';
+  }
+
+  bool _isOnline(DateTime? lastSeen) {
+    if (lastSeen == null) return false;
+    final diff = DateTime.now().difference(lastSeen);
+    return diff.inMinutes < 5;
   }
 
   @override
@@ -156,19 +178,85 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
                 final time =
                     last != null ? _formatRelative(last.createdAt) : '';
 
+                // Simulate last seen (in real app, this would come from server)
+                final lastSeen = last?.createdAt ??
+                    DateTime.now().subtract(const Duration(hours: 2));
+                final isOnline = _isOnline(lastSeen);
+                final onlineStatus = _getOnlineStatus(lastSeen);
+
                 return ListTile(
-                  leading: AvatarWithFallback(
-                    imageUrl: conv.otherUserAvatar,
-                    radius: 22,
-                    initials: conv.otherUserName.isNotEmpty
-                        ? conv.otherUserName.substring(0, 1).toUpperCase()
-                        : null,
+                  leading: Stack(
+                    children: [
+                      AvatarWithFallback(
+                        imageUrl: conv.otherUserAvatar,
+                        radius: 22,
+                        initials: conv.otherUserName.isNotEmpty
+                            ? conv.otherUserName.substring(0, 1).toUpperCase()
+                            : null,
+                      ),
+                      if (isOnline)
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 14,
+                            height: 14,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
-                  title: Text(conv.otherUserName),
-                  subtitle: Text(
-                    subtitle,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  title: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          conv.otherUserName,
+                          style: TextStyle(
+                            fontWeight: conv.unreadCount > 0
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      if (time.isNotEmpty)
+                        Text(
+                          time,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                    ],
+                  ),
+                  subtitle: Row(
+                    children: [
+                      if (!isOnline)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 4),
+                          child: Icon(
+                            Icons.circle,
+                            size: 8,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      Expanded(
+                        child: Text(
+                          isOnline ? subtitle : onlineStatus,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color:
+                                isOnline ? Colors.grey[700] : Colors.grey[500],
+                            fontStyle:
+                                isOnline ? FontStyle.normal : FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

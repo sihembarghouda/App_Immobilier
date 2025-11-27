@@ -1,5 +1,166 @@
 // src/controllers/ai.controller.js
 const pool = require('../config/database');
+const openaiService = require('../services/openai.service');
+
+// Chat avec l'assistant AI
+exports.chat = async (req, res) => {
+  try {
+    const { message, conversationHistory = [] } = req.body;
+    const userId = req.user?.id;
+
+    if (!message) {
+      return res.status(400).json({
+        success: false,
+        message: 'Message requis'
+      });
+    }
+
+    // Obtenir la réponse de l'AI
+    const response = await openaiService.getRealEstateAssistance(
+      message,
+      conversationHistory
+    );
+
+    // Sauvegarder la conversation si utilisateur connecté
+    if (userId) {
+      const client = await pool.connect();
+      try {
+        // Créer la table si elle n'existe pas
+        await client.query(`
+          CREATE TABLE IF NOT EXISTS ai_conversations (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(id),
+            user_message TEXT,
+            ai_response TEXT,
+            context JSONB,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        
+        await client.query(
+          `INSERT INTO ai_conversations (user_id, user_message, ai_response, context)
+           VALUES ($1, $2, $3, $4)`,
+          [userId, message, response, JSON.stringify(conversationHistory)]
+        );
+      } catch (dbError) {
+        console.error('DB save error:', dbError);
+      } finally {
+        client.release();
+      }
+    }
+
+    res.json({
+      success: true,
+      data: {
+        response: response,
+        timestamp: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    console.error('AI chat error:', error);
+    
+    const fallbackResponse = `Je suis désolé, je rencontre actuellement des difficultés techniques. 
+
+En attendant, voici quelques informations générales:
+- Pour acheter un bien en Tunisie, prévoyez environ 150,000 TND pour un appartement
+- Les quartiers populaires à Tunis: La Marsa, Les Berges du Lac, Ennasr
+- Documents nécessaires: CIN, justificatif de revenus, compromis de vente
+
+N'hésitez pas à consulter nos annonces ou à me reposer votre question dans quelques instants.`;
+
+    res.json({
+      success: true,
+      data: {
+        response: fallbackResponse,
+        timestamp: new Date().toISOString(),
+        fallback: true
+      }
+    });
+  }
+};
+
+// Obtenir les questions suggérées
+exports.getSuggestedQuestions = async (req, res) => {
+  try {
+    const questions = openaiService.getSuggestedQuestions();
+
+    res.json({
+      success: true,
+      data: {
+        questions: questions
+      }
+    });
+  } catch (error) {
+    console.error('Get questions error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la récupération des questions'
+    });
+  }
+};
+
+// Analyser les besoins du client
+exports.analyzeNeeds = async (req, res) => {
+  try {
+    const { conversationHistory } = req.body;
+
+    if (!conversationHistory || conversationHistory.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Historique de conversation requis'
+      });
+    }
+
+    const analysis = await openaiService.analyzeClientNeeds(conversationHistory);
+
+    res.json({
+      success: true,
+      data: {
+        analysis: analysis
+      }
+    });
+  } catch (error) {
+    console.error('Analyze needs error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de l\'analyse'
+    });
+  }
+};
+
+// Obtenir l'historique des conversations
+exports.getConversationHistory = async (req, res) => {
+  const client = await pool.connect();
+  
+  try {
+    const userId = req.user.id;
+    const { limit = 20 } = req.query;
+
+    const result = await client.query(
+      `SELECT id, user_message, ai_response, created_at
+       FROM ai_conversations
+       WHERE user_id = $1
+       ORDER BY created_at DESC
+       LIMIT $2`,
+      [userId, limit]
+    );
+
+    res.json({
+      success: true,
+      data: {
+        conversations: result.rows
+      }
+    });
+  } catch (error) {
+    console.error('Get history error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la récupération'
+    });
+  } finally {
+    client.release();
+  }
+};
 
 // AI Matching: Recommander des propriétés pour un acheteur
 exports.getRecommendations = async (req, res) => {
